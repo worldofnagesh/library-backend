@@ -74,12 +74,9 @@ public class StudentController {
 	public ResponseEntity<Student> updateStudent(@PathVariable(value = "id") Long studentId,
 			@Valid @RequestBody Student studentDetails) throws ResourceNotFoundException {
 		Student student = studentRepository.findById(studentId)
-				.orElseThrow(() -> new ResourceNotFoundException("StudentDTO not found for this id :: " + studentId));
+				.orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + studentId));
 
-//		student.setEmailId(studentDetails.getEmailId());
-//		student.setFullName(studentDetails.getFullName());
 		student.setDob(studentDetails.getDob());
-//		student.setGender(studentDetails.getGender());
 		student.setPassword(studentDetails.getPassword());
 		final Student updatedStudent = studentRepository.save(student);
 		return ResponseEntity.ok(updatedStudent);
@@ -92,10 +89,6 @@ public class StudentController {
 				.orElseThrow(() -> new ResourceNotFoundException("StudentDTO not found for this id :: " + studentId));
 
 		student.setEmailId(studentDetails.getEmailId());
-//		student.setFullName(studentDetails.getFullName());
-//		student.setDob(studentDetails.getDob());
-//		student.setGender(studentDetails.getGender());
-//		student.setPassword(studentDetails.getPassword());
 		final Student updatedStudent = studentRepository.save(student);
 		return ResponseEntity.ok(updatedStudent);
 	}
