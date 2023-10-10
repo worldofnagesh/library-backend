@@ -1,11 +1,11 @@
-package net.guides.springboot2.springboot2jpacrudexample.service.Impl;
+package com.library.project.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import net.guides.springboot2.springboot2jpacrudexample.Dao.Dao;
-import net.guides.springboot2.springboot2jpacrudexample.entity.Student;
-import net.guides.springboot2.springboot2jpacrudexample.model.StudentDTO;
-import net.guides.springboot2.springboot2jpacrudexample.service.Service;
+import com.library.project.Dao.Dao;
+import com.library.project.entity.Student;
+import com.library.project.model.StudentDTO;
+import com.library.project.service.Service;
 
 @org.springframework.stereotype.Service
 public class ServiceImpl implements Service {

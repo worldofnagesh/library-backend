@@ -1,4 +1,4 @@
-package net.guides.springboot2.springboot2jpacrudexample.entity;
+package com.library.project.entity;
 
 import jakarta.persistence.*;
 
@@ -87,6 +87,8 @@ public class Student {
 		return "StudentDTO [id=" + id + ", fullName=" + fullName + ", emailId=" + emailId + ", dob=" + dob + ", gender="
 				+ gender + ", state=" + state + ", password=" + password + "]";
 	}
+
+
 	
 	
 	

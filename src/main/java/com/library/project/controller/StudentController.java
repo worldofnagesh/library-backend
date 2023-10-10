@@ -1,8 +1,9 @@
-package net.guides.springboot2.springboot2jpacrudexample.controller;
+package com.library.project.controller;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.library.project.entity.Student;
+import com.library.project.exception.ResourceNotFoundException;
+import com.library.project.model.StudentDTO;
+import com.library.project.repository.StudentRepository;
+import com.library.project.service.Service;
+
 import jakarta.validation.Valid;
-import net.guides.springboot2.springboot2jpacrudexample.entity.Student;
-import net.guides.springboot2.springboot2jpacrudexample.exception.ResourceNotFoundException;
-import net.guides.springboot2.springboot2jpacrudexample.model.StudentDTO;
-import net.guides.springboot2.springboot2jpacrudexample.repository.StudentRepository;
-import net.guides.springboot2.springboot2jpacrudexample.service.Service;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -44,7 +46,7 @@ public class StudentController {
 	public ResponseEntity<Student> getStudentById(@PathVariable(value = "id") Long studentId)
 			throws ResourceNotFoundException {
 		Student student = studentRepository.findById(studentId)
-				.orElseThrow(() -> new ResourceNotFoundException("StudentDTO not found for this id :: " + studentId));
+				.orElseThrow(() ->new ResourceNotFoundException("Student not found for this id :: " + studentId));
 		return ResponseEntity.ok().body(student);
 	}
 	
@@ -69,24 +71,60 @@ public class StudentController {
 		return response;
 
 	}
-
 	@PutMapping("/students/{id}")
-	public ResponseEntity<Student> updateStudent(@PathVariable(value = "id") Long studentId,
+	public void updateStudent(@PathVariable(value = "id") Long studentId,
 			@Valid @RequestBody Student studentDetails) throws ResourceNotFoundException {
 		Student student = studentRepository.findById(studentId)
-				.orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + studentId));
-
-		student.setDob(studentDetails.getDob());
-		student.setPassword(studentDetails.getPassword());
-		final Student updatedStudent = studentRepository.save(student);
-		return ResponseEntity.ok(updatedStudent);
+  				.orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + studentId));
+		Optional<String> optional = compareStrings(studentDetails.getDob(), student.getDob());
+		
+        try {
+            optional.orElseThrow(() -> new ResourceNotFoundException("Strings are not equal"));
+            student.setPassword(studentDetails.getPassword());
+ 		    final Student updatedStudent = studentRepository.save(student);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
 	}
+//	@PutMapping("/students/{id}")
+//	public ResponseEntity<String> updateStudent(@PathVariable(value = "id") Long studentId,
+//			@Valid @RequestBody Student studentDetails) throws ResourceNotFoundException {
+//		Student student = studentRepository.findById(studentId)
+//  				.orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + studentId));
+////		System.out.println(studentDetails.getDob());
+////		System.out.println(student.getDob());
+//		Optional<String> optional = compareStrings(studentDetails.getDob(), student.getDob());
+//		
+//		try {
+//		 if(studentDetails.getDob().equals(student.getDob())){
+//		   student.setPassword(studentDetails.getPassword());
+//		   final Student updatedStudent = studentRepository.save(student);
+//		   return ResponseEntity.ok("Resource updated successfully");
+//		  }
+//		 return ResponseEntity.ok("inside try but not going to if successfully");
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		    return ResponseEntity.status(500).body("An error occurred while updating the resource" + e);
+//		}
+//	}
+	
+//	@PutMapping("/students/{id}")
+//	public ResponseEntity<Student> updateStudent(@PathVariable(value = "id") Long studentId,
+//			@Valid @RequestBody Student studentDetails) throws ResourceNotFoundException {
+//		Student student = studentRepository.findById(studentId)
+//				.orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + studentId));
+//
+//		student.setDob(studentDetails.getDob());
+//		student.setPassword(studentDetails.getPassword());
+//		final Student updatedStudent = studentRepository.save(student);
+//		return ResponseEntity.ok(updatedStudent);
+//	}
 	
 	@PutMapping("/studentinfo/{id}")
 	public ResponseEntity<Student> updateStudentInfo(@PathVariable(value = "id") Long studentId,
 			@Valid @RequestBody Student studentDetails) throws ResourceNotFoundException {
 		Student student = studentRepository.findById(studentId)
-				.orElseThrow(() -> new ResourceNotFoundException("StudentDTO not found for this id :: " + studentId));
+				.orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + studentId));
 
 		student.setEmailId(studentDetails.getEmailId());
 		final Student updatedStudent = studentRepository.save(student);
@@ -104,5 +142,15 @@ public class StudentController {
 		response.put("deleted", Boolean.TRUE);
 		return response;
 	}
+	
+	public static Optional<String> compareStrings(String str1, String str2) {
+        if (str1.equals(str2)) {
+            return Optional.of(str1);
+            
+        } else {
+            return Optional.empty();
+            
+        }
+    }
 }
 

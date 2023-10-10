@@ -1,11 +1,11 @@
-package net.guides.springboot2.springboot2jpacrudexample.Dao.Impl;
+package com.library.project.Dao.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import net.guides.springboot2.springboot2jpacrudexample.Dao.Dao;
-import net.guides.springboot2.springboot2jpacrudexample.entity.Student;
-import net.guides.springboot2.springboot2jpacrudexample.repository.StudentRepository;
+import com.library.project.Dao.Dao;
+import com.library.project.entity.Student;
+import com.library.project.repository.StudentRepository;
 
 @Repository
 public class DaoImpl implements Dao {

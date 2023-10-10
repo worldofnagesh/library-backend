@@ -1,4 +1,4 @@
-package net.guides.springboot2.springboot2jpacrudexample.model;
+package com.library.project.model;
 
 public class StudentDTO {
 	private long id;
