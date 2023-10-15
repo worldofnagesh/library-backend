@@ -27,5 +27,10 @@ public class BookController {
     public List<Books> searchBooksByName(@RequestParam("name") String bookName) {
         return bookRepository.findByBookNameContaining(bookName);
     }
+    
+    @GetMapping("/books/all")
+    public List<Books> getAllBooks() {
+        return bookRepository.findAll();
+    }
 }
 
