@@ -85,29 +85,7 @@ public class StudentController {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-	}
-//	@PutMapping("/students/{id}")
-//	public ResponseEntity<String> updateStudent(@PathVariable(value = "id") Long studentId,
-//			@Valid @RequestBody Student studentDetails) throws ResourceNotFoundException {
-//		Student student = studentRepository.findById(studentId)
-//  				.orElseThrow(() -> new ResourceNotFoundException("Student not found for this id :: " + studentId));
-////		System.out.println(studentDetails.getDob());
-////		System.out.println(student.getDob());
-//		Optional<String> optional = compareStrings(studentDetails.getDob(), student.getDob());
-//		
-//		try {
-//		 if(studentDetails.getDob().equals(student.getDob())){
-//		   student.setPassword(studentDetails.getPassword());
-//		   final Student updatedStudent = studentRepository.save(student);
-//		   return ResponseEntity.ok("Resource updated successfully");
-//		  }
-//		 return ResponseEntity.ok("inside try but not going to if successfully");
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		    return ResponseEntity.status(500).body("An error occurred while updating the resource" + e);
-//		}
-//	}
-	
+	}	
 //	@PutMapping("/students/{id}")
 //	public ResponseEntity<Student> updateStudent(@PathVariable(value = "id") Long studentId,
 //			@Valid @RequestBody Student studentDetails) throws ResourceNotFoundException {
