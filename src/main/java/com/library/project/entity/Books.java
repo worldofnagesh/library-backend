@@ -9,6 +9,7 @@ public class Books {
 	
 	@Column(name="bookId")
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long bookId;
 
 	@Column(name="bookName")

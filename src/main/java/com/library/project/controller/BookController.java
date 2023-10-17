@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.library.project.entity.Books;
+import com.library.project.entity.Cart;
 import com.library.project.repository.BookRepository;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -21,6 +24,11 @@ public class BookController {
 
     public BookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
+    }
+    
+    @PostMapping("/addbook")
+    public Books saveToBooks(@RequestBody Books book) {
+                  return bookRepository.save(book);
     }
 
     @GetMapping("/books")
